@@ -1,7 +1,10 @@
+import axiosInstance from "./axios";
+
 export const setSession = (token) => {
   if (!token) return;
   try {
     localStorage.setItem("authToken", token);
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
   } catch (error) {
     console.error(error);
   }
@@ -9,7 +12,10 @@ export const setSession = (token) => {
 
 export const getSession = () => {
   try {
-    return localStorage.getItem("authToken");
+    const token = localStorage.getItem("authToken");
+    if (token)
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    return token;
   } catch (error) {
     console.error(error);
   }

@@ -1,39 +1,46 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title>HealthAid</v-toolbar-title>
+    <div class="app">
+      <v-app-bar class="elevation-1">
+        <v-toolbar-title>HealthAid</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-btn icon class="mx-2" @click="toggleTheme">
-        <v-icon>mdi-theme-light-dark</v-icon>
-      </v-btn>
+        <v-btn icon class="mx-2" @click="toggleTheme">
+          <v-icon>mdi-theme-light-dark</v-icon>
+        </v-btn>
 
-      <v-btn class="mx-2" v-if="isLoggedIn" @click="logoutHandler">
-        Logout
-      </v-btn>
-    </v-app-bar>
+        <v-btn
+          class="mx-2"
+          color="#ef4444"
+          v-if="isLoggedIn"
+          @click="logoutHandler"
+        >
+          Logout
+        </v-btn>
+      </v-app-bar>
 
-    <v-main>
-      <router-view />
-      <!-- // DIALOG -->
-      <v-dialog v-model="dialogOpen" width="300">
-        <v-card>
-          <v-card-text class="pa-3">
-            {{ $store.getters.dialogText }}
-          </v-card-text>
+      <v-main>
+        <router-view />
+        <!-- // DIALOG -->
+        <v-dialog v-model="dialogOpen" width="300">
+          <v-card>
+            <v-card-text class="pa-3">
+              {{ $store.getters.dialogText }}
+            </v-card-text>
 
-          <v-divider></v-divider>
+            <v-divider></v-divider>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="$store.commit('closeDialog')">
-              Okay
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-main>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="$store.commit('closeDialog')">
+                Okay
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-main>
+    </div>
   </v-app>
 </template>
 
@@ -73,5 +80,9 @@ export default {
   height: 100vh;
   width: 100%;
   /* background-color: black; */
+}
+.app {
+  /* width: 1200px;
+  margin: 0 auto; */
 }
 </style>
