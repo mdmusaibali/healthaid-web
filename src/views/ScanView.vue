@@ -90,7 +90,7 @@ export default {
   align-items: center;
 }
 .scanner {
-  height: 35rem;
-  width: 35rem;
+  height: 35rem !important;
+  width: 35rem !important;
 }
 </style>
