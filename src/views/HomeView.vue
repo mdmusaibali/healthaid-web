@@ -16,33 +16,21 @@
 
 <script>
 import { PatientCard } from "./../components";
-
+import autoLogout from "@/mixins/autoLogout";
 export default {
+  mixins: [autoLogout],
   components: {
     PatientCard,
   },
   mounted() {
-    if (!this.isLoggedIn) {
-      return this.$router.push("/");
-    }
     this.$store.dispatch("getPatients");
   },
   computed: {
     patients() {
       return this.$store.getters.getPatients;
     },
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
-    },
     isGetPatientsLoading() {
       return this.$store.getters.getPatientsLoading;
-    },
-  },
-  watch: {
-    isLoggedIn(newV) {
-      if (!newV) {
-        this.$router.push("/");
-      }
     },
   },
 };
@@ -55,6 +43,6 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  margin-top: 1rem;
+  padding: 1rem 0rem;
 }
 </style>

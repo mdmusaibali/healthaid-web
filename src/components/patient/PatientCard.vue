@@ -1,7 +1,7 @@
 <template>
   <v-card class="patient-card" @click="goToDetailsPage">
     <div>
-      <img :src="noProfileImage" class="image" />
+      <img :src="patient.picture || noProfileImage" class="image" />
     </div>
     <div>
       <h3 class="name">{{ patient.user.name }}</h3>
@@ -34,6 +34,9 @@ export default {
         name: "patient-details",
         params: {
           ...this.$props,
+        },
+        query: {
+          patientId: this.patient.patient_id,
         },
       });
     },

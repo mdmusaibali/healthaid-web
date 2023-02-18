@@ -1,2 +1,4 @@
 import PatientCard from "./patient/PatientCard";
-export { PatientCard };
+import PatientDetailsCard from "./patient/PatientDetailsCard";
+import PatientVisitCard from "./patient/PatientVisitCard";
+export { PatientCard, PatientDetailsCard, PatientVisitCard };

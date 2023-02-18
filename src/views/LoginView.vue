@@ -2,7 +2,12 @@
   <div class="login-view">
     <v-card class="pa-6">
       <form @submit.prevent="submitHandler">
-        <p class="text-h4 pb-2">Login</p>
+        <v-img
+          src="@/assets/img/logo512.png"
+          height="120"
+          width="120"
+          class="logo"
+        ></v-img>
         <v-text-field
           label="Email"
           v-model.trim="formInputs.email"
@@ -19,6 +24,7 @@
         <v-btn
           :color="$vuetify.theme.themes.light.primary"
           @click="submitHandler"
+          class="white--text"
           >Login</v-btn
         >
       </form>
@@ -32,15 +38,18 @@ export default {
   data() {
     return {
       formInputs: {
-        email: "",
-        password: "",
+        email: "pop@gmail.com",
+        password: "5748",
       },
     };
   },
   mounted() {
     const token = getSession();
     if (token) {
-      this.$store.commit("login", { authToken: token });
+      this.$store.commit("login", {
+        authToken: token,
+        message: "Welcome back",
+      });
     }
     if (this.isLoggedIn) {
       this.$router.push("/home");
@@ -77,7 +86,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .login-view {
   height: 100%;
   display: flex;
@@ -86,5 +95,9 @@ export default {
 }
 .input {
   width: 20rem;
+}
+.logo{
+  margin: 0 auto;
+  margin-bottom: 1rem;
 }
 </style>

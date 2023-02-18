@@ -2,7 +2,9 @@
   <v-app>
     <div class="app">
       <v-app-bar class="elevation-1">
-        <v-toolbar-title>HealthAid</v-toolbar-title>
+        <img src="@/assets/img/logo512.png" class="logo" />
+
+        <v-toolbar-title>Health aid</v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -11,7 +13,7 @@
         </v-btn>
 
         <v-btn
-          class="mx-2"
+          class="mx-2 white--text"
           color="#ef4444"
           v-if="isLoggedIn"
           @click="logoutHandler"
@@ -20,7 +22,7 @@
         </v-btn>
       </v-app-bar>
 
-      <v-main>
+      <v-main class="main">
         <router-view />
         <!-- // DIALOG -->
         <v-dialog v-model="dialogOpen" width="300">
@@ -69,20 +71,31 @@ export default {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
     logoutHandler() {
-      this.$store.commit("logout");
+      this.$store.commit("logout", { message: "Logged out" });
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .view {
   height: 100vh;
   width: 100%;
   /* background-color: black; */
 }
+.main {
+  height: calc(100vh - 64px);
+  overflow-y: scroll;
+}
+.main::-webkit-scrollbar {
+  display: none;
+}
 .app {
   /* width: 1200px;
   margin: 0 auto; */
+}
+.logo {
+  height: 60px;
+  width: 60px;
 }
 </style>

@@ -24,6 +24,7 @@ export const getSession = () => {
 export const clearSession = () => {
   try {
     localStorage.removeItem("authToken");
+    axiosInstance.defaults.headers.common.Authorization = null;
   } catch (error) {
     console.error(error);
   }

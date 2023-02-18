@@ -1,3 +1,4 @@
+import store from "@/store";
 import HomeView from "@/views/HomeView.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -15,29 +16,35 @@ const routes = [
     path: "/home",
     name: "home",
     component: HomeView,
+    meta: {
+      needAuth: true,
+    },
   },
   {
     path: "/patient-details",
     name: "patient-details",
     props: true,
     component: PatientDetailsView,
+    meta: {
+      needAuth: true,
+    },
   },
 ];
 
-// router.beforeEach(function (to, from, next) {
-//   if (to.meta.needAuth) {
-//     if (store.getters.isLoggedIn) {
-//       next();
-//     } else {
-//       next("/");
-//     }
-//   } else {
-//     next();
-//   }
-// });
-
 const router = new VueRouter({
   routes,
+});
+
+router.beforeEach(function (to, from, next) {
+  if (to.meta.needAuth) {
+    if (store.getters.isLoggedIn) {
+      next();
+    } else {
+      next("/");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

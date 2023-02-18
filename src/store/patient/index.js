@@ -35,7 +35,18 @@ export default {
           context.commit("fillPatients", data);
         }
       } catch (error) {
-        console.error(error);
+        if (
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.code
+        ) {
+          if (error.response.data.code === "token_not_valid") {
+            context.commit("logout", { message: "Session expired" });
+            console.log("CONTEXT", context);
+          }
+        }
+        console.error("ERROR", error);
       }
       context.commit("setLoadingState", {
         of: "getPatients",
