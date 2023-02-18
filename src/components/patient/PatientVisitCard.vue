@@ -13,7 +13,7 @@
             >
               Name
             </p>
-            <p class="text-h7 ma-0 black--text">{{ patient.user.name }}</p>
+            <p class="text-h7 ma-0 black--text">{{ patient.name }}</p>
           </div>
           <div class="align-self-start mb-3">
             <p

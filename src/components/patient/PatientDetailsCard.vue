@@ -9,7 +9,7 @@
     <h3 class="id grey--text text--darken-1 mt-2 mb-6">#{{ patient.patient_id }}</h3>
     <div class="align-self-start mb-3">
       <p class="ma-0 grey--text text--darken-1 font-weight-medium">Name</p>
-      <p class="text-h6 ma-0">{{ patient.user.name }}</p>
+      <p class="text-h6 ma-0">{{ patient.name }}</p>
     </div>
     <div class="align-self-start mb-3">
       <p class="ma-0 grey--text text--darken-1 font-weight-medium">

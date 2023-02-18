@@ -4,7 +4,7 @@
       <img :src="patient.picture || noProfileImage" class="image" />
     </div>
     <div>
-      <h3 class="name">{{ patient.user.name }}</h3>
+      <h3 class="name">{{ patient.name }}</h3>
       <h3 class="id grey--text text--darken-1 mb-2">
         #{{ patient.patient_id }}
       </h3>

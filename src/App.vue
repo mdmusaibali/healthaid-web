@@ -1,6 +1,8 @@
 <template>
   <v-app>
     <div class="app">
+      <!-- <navigation-drawer></navigation-drawer> -->
+
       <v-app-bar class="elevation-1">
         <img src="@/assets/img/logo512.png" class="logo" />
 
@@ -21,6 +23,7 @@
           Logout
         </v-btn>
       </v-app-bar>
+
 
       <v-main class="main">
         <router-view />
@@ -47,8 +50,12 @@
 </template>
 
 <script>
+import { NavigationDrawer } from "./components";
 export default {
   name: "App",
+  components: {
+    NavigationDrawer,
+  },
   data: () => ({
     //
   }),

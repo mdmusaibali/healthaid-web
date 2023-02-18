@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       formInputs: {
-        email: "pop@gmail.com",
+        email: "pokemon5@gmail.com",
         password: "5748",
       },
     };
