@@ -1,9 +1,12 @@
 import store from "@/store";
 import HomeView from "@/views/HomeView.vue";
+import ScanView from "@/views/ScanView.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import LoginView from "../views/LoginView.vue";
-import PatientDetailsView from "../views/PatientDetailsView.vue";
+import LoginView from "@/views/LoginView.vue";
+import PatientDetailsView from "@/views/PatientDetailsView.vue";
+import AddPatientView from "@/views/AddPatientView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -23,8 +26,23 @@ const routes = [
   {
     path: "/patient-details",
     name: "patient-details",
-    props: true,
     component: PatientDetailsView,
+    meta: {
+      needAuth: true,
+    },
+  },
+  {
+    path: "/scan",
+    name: "scan",
+    component: ScanView,
+    meta: {
+      needAuth: true,
+    },
+  },
+  {
+    path: "/add-patient",
+    name: "add-patient",
+    component: AddPatientView,
     meta: {
       needAuth: true,
     },

@@ -32,9 +32,6 @@ export default {
     goToDetailsPage() {
       this.$router.push({
         name: "patient-details",
-        params: {
-          ...this.$props,
-        },
         query: {
           patientId: this.patient.patient_id,
         },

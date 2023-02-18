@@ -1,51 +1,57 @@
 <template>
   <v-app>
-    <div class="app">
-      <!-- <navigation-drawer></navigation-drawer> -->
+    <navigation-drawer
+      :drawer="drawer"
+      v-if="isLoggedIn"
+      @update-drawer="toggleDrawer"
+    ></navigation-drawer>
 
-      <v-app-bar class="elevation-1">
-        <img src="@/assets/img/logo512.png" class="logo" />
+    <v-app-bar app class="elevation-1">
+      <v-app-bar-nav-icon
+        v-if="isLoggedIn"
+        @click.stop="drawer = !drawer"
+      ></v-app-bar-nav-icon>
 
-        <v-toolbar-title>Health aid</v-toolbar-title>
+      <img src="@/assets/img/logo512.png" class="logo" />
 
-        <v-spacer></v-spacer>
+      <v-toolbar-title>Health aid</v-toolbar-title>
 
-        <v-btn icon class="mx-2" @click="toggleTheme">
-          <v-icon>mdi-theme-light-dark</v-icon>
-        </v-btn>
+      <v-spacer></v-spacer>
 
-        <v-btn
-          class="mx-2 white--text"
-          color="#ef4444"
-          v-if="isLoggedIn"
-          @click="logoutHandler"
-        >
-          Logout
-        </v-btn>
-      </v-app-bar>
+      <v-btn icon class="mx-2" @click="toggleTheme">
+        <v-icon>mdi-theme-light-dark</v-icon>
+      </v-btn>
 
+      <v-btn
+        class="mx-2 white--text"
+        color="#ef4444"
+        v-if="isLoggedIn"
+        @click="logoutHandler"
+      >
+        Logout
+      </v-btn>
+    </v-app-bar>
 
-      <v-main class="main">
-        <router-view />
-        <!-- // DIALOG -->
-        <v-dialog v-model="dialogOpen" width="300">
-          <v-card>
-            <v-card-text class="pa-3">
-              {{ $store.getters.dialogText }}
-            </v-card-text>
+    <v-main class="main">
+      <router-view />
+      <!-- // DIALOG -->
+      <v-dialog v-model="dialogOpen" width="300">
+        <v-card>
+          <v-card-text class="pa-3">
+            {{ $store.getters.dialogText }}
+          </v-card-text>
 
-            <v-divider></v-divider>
+          <v-divider></v-divider>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="primary" text @click="$store.commit('closeDialog')">
-                Okay
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-main>
-    </div>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="$store.commit('closeDialog')">
+              Okay
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-main>
   </v-app>
 </template>
 
@@ -57,7 +63,7 @@ export default {
     NavigationDrawer,
   },
   data: () => ({
-    //
+    drawer: false,
   }),
   computed: {
     dialogOpen: {
@@ -74,6 +80,9 @@ export default {
     },
   },
   methods: {
+    toggleDrawer(value) {
+      this.drawer = value;
+    },
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
@@ -96,10 +105,6 @@ export default {
 }
 .main::-webkit-scrollbar {
   display: none;
-}
-.app {
-  /* width: 1200px;
-  margin: 0 auto; */
 }
 .logo {
   height: 60px;
