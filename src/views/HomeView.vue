@@ -43,6 +43,16 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  padding: 1rem 0rem;
+  padding: 1rem 1rem;
+}
+@media (max-width: 1000px) {
+  .patients {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .patients {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>

@@ -25,6 +25,8 @@
           :color="$vuetify.theme.themes.light.primary"
           @click="submitHandler"
           class="white--text"
+          :loading="isLoginLoading"
+          :disabled="isLoginLoading"
           >Login</v-btn
         >
       </form>
@@ -69,6 +71,9 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
+    isLoginLoading() {
+      return this.$store.getters.loginLoading;
+    },
   },
   methods: {
     submitHandler() {
@@ -96,7 +101,7 @@ export default {
 .input {
   width: 20rem;
 }
-.logo{
+.logo {
   margin: 0 auto;
   margin-bottom: 1rem;
 }

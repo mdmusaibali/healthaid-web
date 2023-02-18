@@ -6,10 +6,16 @@ export default {
   state: {
     isLoggedIn: false,
     authToken: null,
+    status: {
+      login: null,
+    },
   },
   getters: {
     isLoggedIn(state) {
       return state.isLoggedIn;
+    },
+    loginLoading(state) {
+      return state.status.login;
     },
   },
   mutations: {
@@ -21,12 +27,16 @@ export default {
     logout(state, { message }) {
       state.isLoggedIn = false;
       clearSession();
-      Vue.$toast.open({ type: "error", message });
+      Vue.$toast.open({ type: "info", message });
+    },
+    setLoadingState(state, { of, value }) {
+      state.status[of] = value;
     },
   },
   actions: {
     async login(context, { email, password }) {
       try {
+        context.commit("setLoadingState", { of: "login", value: true });
         const response = await axiosInstance.post("/users/staff/login/", {
           email,
           password,
@@ -42,7 +52,10 @@ export default {
       } catch (error) {
         Vue.$toast.open({ type: "error", message: "Something went wrong!" });
       }
+      context.commit("setLoadingState", {
+        of: "login",
+        value: false,
+      });
     },
   },
-  modules: {},
 };

@@ -30,7 +30,6 @@ export default {
       try {
         const response = await axiosInstance.get("/users/staff/get_patients/");
         const data = await response.data;
-        await sleeper(1000);
         if (data && data.length !== 0) {
           context.commit("fillPatients", data);
         }

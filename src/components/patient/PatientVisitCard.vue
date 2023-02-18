@@ -3,7 +3,7 @@
     <!-- FRONT CARD -->
     <div id="pdf-content">
       <v-card class="card--front mt-10">
-        <div class="mr-8">
+        <div>
           <QrcodeVue :value="patient.patient_id" size="120" level="H" />
         </div>
         <div>
@@ -35,12 +35,8 @@
       </v-card>
       <!-- BACK CARD -->
       <v-card class="card--front mt-5">
-        <div class="mr-8">
-          <v-img
-            src="@/assets/img/logo512.png"
-            height="120"
-            width="120"
-          ></v-img>
+        <div>
+          <img :src="logo" height="120" width="120" />
         </div>
         <div>
           <div class="align-self-start mb-3 d-flex align-center">
@@ -77,6 +73,11 @@ export default {
   props: ["patient"],
   components: {
     QrcodeVue,
+  },
+  data() {
+    return {
+      logo: require("@/assets/img/logo512.png"),
+    };
   },
   methods: {
     downloadPDF() {
@@ -118,7 +119,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 2rem;
 }
+/* #pdf-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+} */
 .card--front {
   display: flex;
   align-items: center;
@@ -127,5 +134,13 @@ export default {
   width: 25rem;
   height: 13rem;
   border: 1.5px solid black;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .card--front {
+    width: 22rem;
+    gap: 1rem;
+  }
 }
 </style>
