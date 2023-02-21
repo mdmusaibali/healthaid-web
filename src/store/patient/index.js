@@ -1,11 +1,13 @@
 import axiosInstance from "@/utils/axios";
 import { sleeper } from "./../../utils/helper";
+import Vue from "vue";
 
 export default {
   state: {
     patients: [],
     isLoading: {
       getPatients: null,
+      addPatient: null,
     },
   },
   getters: {
@@ -15,6 +17,9 @@ export default {
     getPatientsLoading(state) {
       return state.isLoading.getPatients;
     },
+    addPatientLoading(state) {
+      return state.isLoading.addPatient;
+    },
   },
   mutations: {
     fillPatients(state, payload) {
@@ -22,6 +27,9 @@ export default {
     },
     setLoadingState(state, { of, value }) {
       state.isLoading[of] = value;
+    },
+    appendPatient(state, payload) {
+      state.patients.push(payload);
     },
   },
   actions: {
@@ -49,6 +57,32 @@ export default {
       }
       context.commit("setLoadingState", {
         of: "getPatients",
+        value: false,
+      });
+    },
+    async addPatient(context, payload) {
+      if (!payload) return;
+      console.log("PAYLOAD", payload);
+      context.commit("setLoadingState", { of: "addPatient", value: true });
+      try {
+        const response = await axiosInstance.post(
+          "/users/staff/create_patient/",
+          payload
+        );
+        const data = await response.data;
+        if (data && data?.patient_id) {
+          context.commit("appendPatient", data);
+          Vue.$toast.open({
+            type: "success",
+            message: "Patient has been added",
+          });
+        }
+      } catch (error) {
+        console.error("ERROR", error);
+        Vue.$toast.open({ type: "error", message: "Something went wrong!" });
+      }
+      context.commit("setLoadingState", {
+        of: "addPatient",
         value: false,
       });
     },
