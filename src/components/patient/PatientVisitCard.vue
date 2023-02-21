@@ -229,7 +229,8 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .card--front {
+  .card--front,
+  .card--back {
     width: 22rem;
     gap: 1rem;
   }
