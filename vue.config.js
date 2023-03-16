@@ -1,7 +1,8 @@
 const { defineConfig } = require('@vue/cli-service')
-
-export default defineConfig({
-  transpileDependencies: ["vuetify"],
+module.exports = defineConfig({
+  transpileDependencies: [
+    'vuetify'
+  ],
   configureWebpack: {
     node: {
       global: true,
@@ -9,4 +10,4 @@ export default defineConfig({
       NODE_TLS_REJECT_UNAUTHORIZED: 0,
     },
   },
-});
+})
