@@ -38,7 +38,7 @@ export default {
       try {
         const response = await axiosInstance.get("/users/staff/get_patients/");
         const data = await response.data;
-        if (data && data.length !== 0) {
+        if (data) {
           context.commit("fillPatients", data);
         }
       } catch (error) {

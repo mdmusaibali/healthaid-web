@@ -6,10 +6,18 @@
       @update-drawer="toggleDrawer"
     ></navigation-drawer>
 
+    <admin-navigation-drawer
+      :drawer="adminDrawer"
+      v-if="isAdminLoggedIn"
+      @update-drawer="toggleAdminDrawer"
+    ></admin-navigation-drawer>
+
     <v-app-bar app class="elevation-1">
       <v-app-bar-nav-icon
-        v-if="isLoggedIn"
-        @click.stop="drawer = !drawer"
+        v-if="isLoggedIn || isAdminLoggedIn"
+        @click.stop="
+          isAdminLoggedIn ? (adminDrawer = !adminDrawer) : (drawer = !drawer)
+        "
       ></v-app-bar-nav-icon>
 
       <img src="@/assets/img/logo512.png" class="logo" />
@@ -25,7 +33,7 @@
       <v-btn
         class="mx-2 white--text"
         color="#ef4444"
-        v-if="isLoggedIn"
+        v-if="isLoggedIn || isAdminLoggedIn"
         @click="logoutHandler"
       >
         Logout
@@ -56,14 +64,16 @@
 </template>
 
 <script>
-import { NavigationDrawer } from "./components";
+import { NavigationDrawer, AdminNavigationDrawer } from "./components";
 export default {
   name: "App",
   components: {
     NavigationDrawer,
+    AdminNavigationDrawer,
   },
   data: () => ({
     drawer: false,
+    adminDrawer: false,
   }),
   computed: {
     dialogOpen: {
@@ -78,16 +88,25 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
+    isAdminLoggedIn() {
+      console.log("ADMIN: ", this.$store.getters.isAdminLoggedIn);
+      return this.$store.getters.isAdminLoggedIn;
+    },
   },
   methods: {
     toggleDrawer(value) {
       this.drawer = value;
+    },
+    toggleAdminDrawer(value) {
+      console.log("ADMIN DRAWER:", value);
+      this.adminDrawer = value;
     },
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
     logoutHandler() {
       this.$store.commit("logout", { message: "Logged out" });
+      this.$store.commit("adminLogout");
     },
   },
 };

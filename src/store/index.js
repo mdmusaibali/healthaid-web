@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import auth from "./auth";
 import dialog from "./dialog";
 import patient from "./patient";
+import admin from "./admin";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -10,6 +11,7 @@ export default new Vuex.Store({
     auth,
     dialog,
     patient,
+    admin,
   },
   state: {
     text: "",

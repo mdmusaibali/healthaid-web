@@ -192,6 +192,7 @@ export default {
   gap: 1rem;
   align-items: center;
   padding: 1rem 0 0rem 0;
+  border-radius: 0 !important;
 }
 .label {
   font-size: 0.85rem;

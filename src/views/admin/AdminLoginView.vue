@@ -35,32 +35,32 @@
 </template>
 
 <script>
-import { getSession } from "./../utils/session";
+import { getSession } from "../../utils/session";
 export default {
   data() {
     return {
       formInputs: {
-        email: "staff1@gmail.com",
-        password: "1234",
+        email: "admin@gmail.com",
+        password: "admin@123",
       },
     };
   },
   mounted() {
     const token = getSession();
     if (token) {
-      this.$store.commit("login", {
+      this.$store.commit("adminLogin", {
         authToken: token,
         message: "Welcome back",
       });
     }
     if (this.isLoggedIn) {
-      this.$router.push("/home");
+      this.$router.push("/admin-home");
     }
   },
   watch: {
     isLoggedIn(newV) {
       if (newV) {
-        this.$router.push("/home");
+        this.$router.push("/admin-home");
       }
     },
   },
@@ -69,10 +69,10 @@ export default {
       return this.formInputs.email !== "" && this.formInputs.password !== "";
     },
     isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
+      return this.$store.getters.isAdminLoggedIn;
     },
     isLoginLoading() {
-      return this.$store.getters.loginLoading;
+      return this.$store.getters.adminLoginLoading;
     },
   },
   methods: {
@@ -82,7 +82,7 @@ export default {
           text: "Please fill all input fields.",
         });
 
-      this.$store.dispatch("login", {
+      this.$store.dispatch("adminLogin", {
         email: this.formInputs.email,
         password: this.formInputs.password,
       });

@@ -6,6 +6,9 @@ import VueRouter from "vue-router";
 import LoginView from "@/views/LoginView.vue";
 import PatientDetailsView from "@/views/PatientDetailsView.vue";
 import AddPatientView from "@/views/AddPatientView.vue";
+import AdminLoginView from "@/views/admin/AdminLoginView";
+import AdminHomeView from "@/views/admin/AdminHomeView";
+import AdminAddStaffView from "@/views/admin/AdminAddStaffView";
 
 Vue.use(VueRouter);
 
@@ -47,6 +50,27 @@ const routes = [
       needAuth: true,
     },
   },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminLoginView,
+  },
+  {
+    path: "/admin-home",
+    name: "admin-home",
+    component: AdminHomeView,
+    meta: {
+      needAdminAuth: true,
+    },
+  },
+  {
+    path: "/add-staff",
+    name: "add-staff",
+    component: AdminAddStaffView,
+    meta: {
+      needAdminAuth: true,
+    },
+  },
 ];
 
 const router = new VueRouter({
@@ -59,6 +83,12 @@ router.beforeEach(function (to, from, next) {
       next();
     } else {
       next("/");
+    }
+  } else if (to.meta.needAdminAuth) {
+    if (store.getters.isAdminLoggedIn) {
+      next();
+    } else {
+      next("/admin");
     }
   } else {
     next();
