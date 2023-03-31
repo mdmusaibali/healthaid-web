@@ -67,7 +67,12 @@ export default {
       try {
         const response = await axiosInstance.post(
           "/users/staff/create_patient/",
-          payload
+          payload,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         const data = await response.data;
         if (data && data?.patient_id) {

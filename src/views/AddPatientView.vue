@@ -7,6 +7,25 @@
       v-model="isValid"
       @submit.prevent="submitHandler"
     >
+      <div style="width: 100%">
+        <input
+          type="file"
+          name="profileImage"
+          id="profileImage"
+          @change="handleFileChnage"
+          ref="imageRef"
+          style="display: none"
+        />
+        <label for="profileImage" style="cursor: pointer">
+          <div :style="inputBorderStyles">
+            <v-icon class="mr-3">mdi-upload</v-icon>
+            <p class="ma-0" style="color: #aaa" v-if="!picture">
+              Upload patient's picture
+            </p>
+            <p v-else class="ma-0" style="color: #aaa">{{ picture }}</p>
+          </div>
+        </label>
+      </div>
       <v-text-field
         label="Name"
         v-model="formData.name"
@@ -74,6 +93,7 @@ export default {
         phone_number: "",
         aadhar_number: "",
       },
+      picture: null,
       isValid: true,
       items: ["male", "female"],
       formRules: {
@@ -96,14 +116,36 @@ export default {
     isAddPatientLoading() {
       return this.$store.getters.addPatientLoading;
     },
+    inputBorderStyles() {
+      return {
+        height: "56px",
+        "border-radius": "3px",
+        margin: "0 auto",
+        display: "flex",
+        "align-items": "center",
+        padding: "10px",
+        border: this.$vuetify.theme.dark
+          ? "1px solid rgba(255, 255, 255, 0.24)"
+          : "1px solid rgba(0, 0, 0, 0.38)",
+      };
+    },
   },
   methods: {
     async submitHandler() {
       this.$refs.formRef.validate();
-      console.log(this.isValid);
       if (!this.isValid) return;
-      await this.$store.dispatch("addPatient", this.formData);
+      const file = this.$refs.imageRef.files[0];
+      let formdata = new FormData();
+      Object.keys(this.formData).forEach((key) => {
+        formdata.append(key, this.formData[key]);
+      });
+      if (file) formdata.append("picture", file);
+      await this.$store.dispatch("addPatient", formdata);
       this.$router.push("/home");
+    },
+    handleFileChnage(e) {
+      console.log(e?.target?.value);
+      this.picture = e?.target?.value;
     },
   },
 };
