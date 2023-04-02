@@ -18,6 +18,7 @@
         <v-text-field
           label="Password"
           v-model.trim="formInputs.password"
+          type="password"
           outlined
           class="input"
         ></v-text-field>
